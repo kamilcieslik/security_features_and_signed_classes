@@ -1,4 +1,4 @@
-package javafx;
+package com.github.kamilcieslik.academic.app.javafx;
 
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;

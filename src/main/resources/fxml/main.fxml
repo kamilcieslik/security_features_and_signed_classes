@@ -1,9 +1,380 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.MainController">
-
-</AnchorPane>
+<VBox prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.github.kamilcieslik.academic.app.javafx.controller.MainController">
+    <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0"
+          style="-fx-background-color: grey; -fx-border-width: 1; -fx-border-color: #000;"
+          styleClass="appThemeContainer" stylesheets="@../css/application_style.css">
+        <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+        <ImageView fitHeight="112.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true"
+                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.8, 0, 0);">
+            <HBox.margin>
+                <Insets bottom="5.0" top="5.0"/>
+            </HBox.margin>
+            <Image url="@../image/app_logo.png"/>
+        </ImageView>
+    </HBox>
+    <HBox prefHeight="20.0" prefWidth="1600.0"
+          style="-fx-background-color: #000; -fx-effect: dropshadow(three-pass-box,  grey, 15, 0.5, 0, 1);">
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0"/>
+        </VBox.margin>
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="100000.0"
+               text="Aplikacja pozwalająca szyfrować i rozszyfrować dany plik" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+            <HBox.margin>
+                <Insets bottom="2.0" top="2.0"/>
+            </HBox.margin>
+        </Label>
+    </HBox>
+    <VBox style="-fx-background-color: black;">
+        <VBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0"/>
+        </VBox.margin>
+        <HBox alignment="CENTER" style="-fx-background-color: grey;">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <Label text="Generator kluczy" textFill="WHITE">
+                <font>
+                    <Font size="16.0"/>
+                </font>
+            </Label>
+        </HBox>
+        <HBox>
+            <VBox alignment="CENTER" style="-fx-background-color: #545469;" HBox.hgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets bottom="3.0" left="3.0"/>
+                </HBox.margin>
+                <HBox alignment="CENTER_LEFT">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Label minWidth="74.0"
+                           style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                           text="Ścieżka:" textFill="WHITE" HBox.hgrow="SOMETIMES">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="textFieldKeyPath" editable="false" prefHeight="25.0" prefWidth="79.0"
+                               style="-fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets left="10.0" right="10.0"/>
+                        </HBox.margin>
+                    </TextField>
+                </HBox>
+            </VBox>
+            <HBox alignment="CENTER" style="-fx-background-color: #545469;">
+                <HBox.margin>
+                    <Insets bottom="3.0" left="3.0" right="3.0"/>
+                </HBox.margin>
+                <padding>
+                    <Insets left="20.0" right="20.0"/>
+                </padding>
+                <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                        onAction="#buttonGenerateKeys_onAction" prefHeight="25.0" prefWidth="180.0"
+                        style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                        text="Wygeneruj klucze" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                        onAction="#buttonChooseKeysPath_onAction" prefHeight="25.0" prefWidth="180.0"
+                        style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                        text="Wskaż ściężkę do kluczy" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </Button>
+            </HBox>
+        </HBox>
+        <HBox>
+            <Region minWidth="3.0">
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </Region>
+        </HBox>
+    </VBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets bottom="13.0"/>
+        </VBox.margin>
+        <Region prefHeight="200.0" prefWidth="14.0"/>
+        <VBox prefHeight="854.0" prefWidth="460.0"
+              style="-fx-background-color: #000; -fx-effect: dropshadow(two-pass-box, #848484, 0, 0.5, -4, 5);"
+              HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="3.0"/>
+            </padding>
+            <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                <VBox.margin>
+                    <Insets left="3.0" right="3.0" top="3.0"/>
+                </VBox.margin>
+                <Label text="Szyfrowanie" textFill="WHITE">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+            </HBox>
+            <HBox>
+                <VBox.margin>
+                    <Insets left="3.0" right="3.0" top="3.0"/>
+                </VBox.margin>
+                <VBox alignment="CENTER" style="-fx-background-color: #545469;" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox.margin>
+                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        </VBox.margin>
+                        <Label minWidth="74.0"
+                               style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                               text="Ścieżka:" textFill="WHITE" HBox.hgrow="SOMETIMES">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldFilePath" editable="false" prefHeight="25.0" prefWidth="79.0"
+                                   style="-fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </HBox.margin>
+                        </TextField>
+                    </HBox>
+                </VBox>
+                <VBox alignment="CENTER" style="-fx-background-color: #545469;">
+                    <HBox.margin>
+                        <Insets left="3.0"/>
+                    </HBox.margin>
+                    <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                            onAction="#buttonChooseFilePath_onAction" prefHeight="25.0" prefWidth="180.0"
+                            style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                            text="Wybierz plik" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                        <VBox.margin>
+                            <Insets left="20.0" right="20.0"/>
+                        </VBox.margin>
+                    </Button>
+                </VBox>
+            </HBox>
+            <HBox style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                  VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0"/>
+                </VBox.margin>
+                <VBox HBox.hgrow="ALWAYS">
+                    <TextArea fx:id="textAreaFileContent" editable="false"
+                              style="-fx-background-radius: 0; -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                              wrapText="true" VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                            <Insets bottom="3.0" right="3.0"/>
+                        </VBox.margin>
+                    </TextArea>
+                </VBox>
+            </HBox>
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #545469; -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );">
+                <VBox.margin>
+                    <Insets left="3.0" right="3.0" top="10.0"/>
+                </VBox.margin>
+                <HBox alignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Button minHeight="25.0" minWidth="81.0" mnemonicParsing="false"
+                            onAction="#buttonEncrypt_onAction" prefHeight="25.0" prefWidth="81.0"
+                            style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                            text="Szyfruj" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                        <HBox.margin>
+                            <Insets left="20.0"/>
+                        </HBox.margin>
+                    </Button>
+                    <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                            onAction="#buttonFileOriginalContent_onAction" prefHeight="25.0" prefWidth="178.0"
+                            style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                            text="Pokaż oryginalną zawartość" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                        <HBox.margin>
+                            <Insets left="20.0"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+                <HBox alignment="CENTER"/>
+            </VBox>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="730.0" prefWidth="15.0">
+            <HBox.margin>
+                <Insets left="2.0"/>
+            </HBox.margin>
+        </Separator>
+        <VBox HBox.hgrow="ALWAYS">
+            <VBox prefHeight="854.0" prefWidth="460.0"
+                  style="-fx-background-color: #000; -fx-effect: dropshadow(two-pass-box, #848484, 0, 0.5, 4, 5);">
+                <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                    <VBox.margin>
+                        <Insets left="3.0" right="3.0" top="3.0"/>
+                    </VBox.margin>
+                    <Label text="Deszyfrowanie" textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets left="3.0" right="3.0" top="3.0"/>
+                    </VBox.margin>
+                    <VBox alignment="CENTER" style="-fx-background-color: #545469;" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                            <Label minWidth="74.0"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                   text="Ścieżka:" textFill="WHITE" HBox.hgrow="SOMETIMES">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                            <TextField fx:id="textFieldEncryptedFilePath" editable="false" prefHeight="25.0"
+                                       prefWidth="79.0" style="-fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+                                <HBox.margin>
+                                    <Insets left="10.0" right="10.0"/>
+                                </HBox.margin>
+                            </TextField>
+                        </HBox>
+                    </VBox>
+                    <VBox alignment="CENTER" style="-fx-background-color: #545469;">
+                        <HBox.margin>
+                            <Insets left="3.0"/>
+                        </HBox.margin>
+                        <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                                onAction="#buttonChooseEncryptedFilePath_onAction" prefHeight="25.0" prefWidth="180.0"
+                                style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                                text="Wybierz zaszyfrowany plik" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </VBox>
+                </HBox>
+                <HBox style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                      VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <TextArea fx:id="textAreaEncryptedFileContent" editable="false"
+                                  style="-fx-background-radius: 0; -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                                  wrapText="true" VBox.vgrow="ALWAYS">
+                            <VBox.margin>
+                                <Insets bottom="3.0" right="3.0"/>
+                            </VBox.margin>
+                        </TextArea>
+                    </VBox>
+                </HBox>
+                <VBox alignment="CENTER"
+                      style="-fx-background-color: #545469; -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );">
+                    <VBox.margin>
+                        <Insets left="3.0" right="3.0" top="10.0"/>
+                    </VBox.margin>
+                    <HBox alignment="CENTER">
+                        <VBox.margin>
+                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        </VBox.margin>
+                        <Button minHeight="25.0" minWidth="81.0" mnemonicParsing="false"
+                                onAction="#buttonDecrypt_onAction" prefHeight="25.0" prefWidth="81.0"
+                                style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                                text="Rozszyfruj" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false"
+                                onAction="#buttonEncryptedFileOriginalContent_onAction" prefHeight="25.0"
+                                prefWidth="178.0"
+                                style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                                text="Pokaż oryginalną zawartość" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+                    <HBox alignment="CENTER"/>
+                </VBox>
+                <padding>
+                    <Insets bottom="3.0"/>
+                </padding>
+            </VBox>
+        </VBox>
+        <Region prefHeight="200.0" prefWidth="14.0"/>
+    </HBox>
+</VBox>
