@@ -83,10 +83,10 @@ public class MainController implements Initializable {
                     .add(new FileChooser.ExtensionFilter("klucze", "*.key"));
             File file = frontCoversFileChooser.showOpenDialog(textAreaEncryptedFileContent.getScene().getWindow());
             if (file != null) {
-                String pathForDecryptedFile = textFieldFilePath.getText().substring(0,
-                        textFieldFilePath.getText().lastIndexOf('\\')) + "\\decrypted_file.txt";
+                String pathForDecryptedFile = textFieldEncryptedFilePath.getText().substring(0,
+                        textFieldEncryptedFilePath.getText().lastIndexOf('\\')) + "\\decrypted_file.txt";
                 try {
-                    encoderDecoder.encryptFile(textFieldEncryptedFilePath.getText(), pathForDecryptedFile,
+                    encoderDecoder.decryptFile(textFieldEncryptedFilePath.getText(), pathForDecryptedFile,
                             file.toString());
                     readFileContent(null, textAreaEncryptedFileContent, pathForDecryptedFile);
                 } catch (IllegalBlockSizeException e) {
