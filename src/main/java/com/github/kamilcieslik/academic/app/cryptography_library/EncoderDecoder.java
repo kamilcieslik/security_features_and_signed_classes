@@ -14,14 +14,13 @@ import java.security.spec.InvalidKeySpecException;
 public class EncoderDecoder {
     private KeyGenerator keyGenerator;
     private Cryptography cryptography;
-    private String pathToPrivateKey, pathToPublicKey;
 
     public EncoderDecoder() throws NoSuchProviderException, NoSuchAlgorithmException, NoSuchPaddingException {
         this.keyGenerator = new KeyGenerator(4098);
         this.cryptography = new Cryptography();
     }
 
-    public boolean encryptFile(String pathDecryptedFile, String newPath) throws IOException, IllegalBlockSizeException,
+    public boolean encryptFile(String pathDecryptedFile, String newPath, String pathToPublicKey) throws IOException, IllegalBlockSizeException,
             InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         if (new File(pathDecryptedFile).exists()) {
             cryptography.encryptFile(cryptography.getFileInBytes(new File(pathDecryptedFile)),
@@ -31,7 +30,7 @@ public class EncoderDecoder {
         return false;
     }
 
-    public boolean decryptFile(String pathEncryptedFile, String newPath) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
+    public boolean decryptFile(String pathEncryptedFile, String newPath, String pathToPrivateKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         if (new File(pathEncryptedFile).exists()) {
             cryptography.decryptFile(cryptography.getFileInBytes(new File(pathEncryptedFile)),
                     new File(newPath), cryptography.getPrivateKey(pathToPrivateKey));
@@ -44,7 +43,5 @@ public class EncoderDecoder {
         keyGenerator.createKeys();
         keyGenerator.writeToFile(keysPath + "/publicKey", keyGenerator.getPublicKey().getEncoded());
         keyGenerator.writeToFile(keysPath + "/privateKey", keyGenerator.getPrivateKey().getEncoded());
-        pathToPrivateKey = keysPath + "/privateKey";
-        pathToPublicKey = keysPath + "/publicKey";
     }
 }
