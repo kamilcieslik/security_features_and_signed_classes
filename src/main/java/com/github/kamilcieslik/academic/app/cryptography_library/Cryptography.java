@@ -20,10 +20,6 @@ public class Cryptography {
     }
 
     public PrivateKey getPrivateKey(String path) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        java.security.Security.addProvider(
-                new org.bouncycastle.jce.provider.BouncyCastleProvider()
-        );
-
         byte[] bytes;
         bytes = Files.readAllBytes(new File(path).toPath());
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(bytes);
