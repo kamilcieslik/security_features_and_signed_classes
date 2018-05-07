@@ -20,13 +20,15 @@ public class Cryptography {
     }
 
     public PrivateKey getPrivateKey(String path) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        byte[] bytes = new byte[0];
+        java.security.Security.addProvider(
+                new org.bouncycastle.jce.provider.BouncyCastleProvider()
+        );
+
+        byte[] bytes;
         bytes = Files.readAllBytes(new File(path).toPath());
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(bytes);
-        KeyFactory keyFactory = null;
-        keyFactory = KeyFactory.getInstance("RSA");
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         return keyFactory.generatePrivate(spec);
-
     }
 
     public PublicKey getPublicKey(String path) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
