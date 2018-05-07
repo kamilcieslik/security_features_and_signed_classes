@@ -20,19 +20,15 @@ public class Cryptography {
     }
 
     public PrivateKey getPrivateKey(String path) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        byte[] bytes;
-        bytes = Files.readAllBytes(new File(path).toPath());
+        byte[] bytes = Files.readAllBytes(new File(path).toPath());
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(bytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        return keyFactory.generatePrivate(spec);
+        return KeyFactory.getInstance("RSA").generatePrivate(spec);
     }
 
     public PublicKey getPublicKey(String path) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] bytes;
-        bytes = Files.readAllBytes(new File(path).toPath());
+        byte[] bytes = Files.readAllBytes(new File(path).toPath());
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(bytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        return keyFactory.generatePublic(x509EncodedKeySpec);
+        return KeyFactory.getInstance("RSA").generatePublic(x509EncodedKeySpec);
     }
 
     private void writeToFile(File file, byte[] bytes) throws IOException {
@@ -42,22 +38,26 @@ public class Cryptography {
         fileOutputStream.close();
     }
 
-    public void encryptFile(byte[] input, File output, PublicKey key) throws BadPaddingException, IllegalBlockSizeException, InvalidKeyException, IOException {
+    public void encryptFile(byte[] input, File output, PublicKey key) throws BadPaddingException,
+            IllegalBlockSizeException, InvalidKeyException, IOException {
         this.cipher.init(Cipher.ENCRYPT_MODE, key);
         writeToFile(output, this.cipher.doFinal(input));
     }
 
-    public void decryptFile(byte[] input, File output, PrivateKey key) throws InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException {
+    public void decryptFile(byte[] input, File output, PrivateKey key) throws InvalidKeyException, BadPaddingException,
+            IllegalBlockSizeException, IOException {
         this.cipher.init(Cipher.DECRYPT_MODE, key);
         writeToFile(output, this.cipher.doFinal(input));
     }
 
-    public String encryptText(String message, PublicKey key) throws InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+    public String encryptText(String message, PublicKey key) throws InvalidKeyException, UnsupportedEncodingException,
+            BadPaddingException, IllegalBlockSizeException {
         this.cipher.init(Cipher.ENCRYPT_MODE, key);
         return Base64.getEncoder().encodeToString(cipher.doFinal(message.getBytes("UTF-8")));
     }
 
-    public String decryptText(String message, PrivateKey key) throws InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+    public String decryptText(String message, PrivateKey key) throws InvalidKeyException, UnsupportedEncodingException,
+            BadPaddingException, IllegalBlockSizeException {
         this.cipher.init(Cipher.DECRYPT_MODE, key);
         return new String(this.cipher.doFinal(Base64.getDecoder().decode(message.getBytes("UTF-8"))));
     }

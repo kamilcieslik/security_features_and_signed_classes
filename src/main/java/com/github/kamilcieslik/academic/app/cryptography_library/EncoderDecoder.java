@@ -20,7 +20,8 @@ public class EncoderDecoder {
         this.cryptography = new Cryptography();
     }
 
-    public boolean encryptFile(String pathDecryptedFile, String newPath, String pathToPublicKey) throws IOException, IllegalBlockSizeException,
+    public boolean encryptFile(String pathDecryptedFile, String newPath, String pathToPublicKey) throws IOException,
+            IllegalBlockSizeException,
             InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         if (new File(pathDecryptedFile).exists()) {
             cryptography.encryptFile(cryptography.getFileInBytes(new File(pathDecryptedFile)),
@@ -30,7 +31,9 @@ public class EncoderDecoder {
         return false;
     }
 
-    public boolean decryptFile(String pathEncryptedFile, String newPath, String pathToPrivateKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
+    public boolean decryptFile(String pathEncryptedFile, String newPath, String pathToPrivateKey) throws IOException,
+            InvalidKeySpecException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException,
+            IllegalBlockSizeException {
         if (new File(pathEncryptedFile).exists()) {
             cryptography.decryptFile(cryptography.getFileInBytes(new File(pathEncryptedFile)),
                     new File(newPath), cryptography.getPrivateKey(pathToPrivateKey));
