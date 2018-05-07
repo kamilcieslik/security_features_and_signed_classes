@@ -86,23 +86,29 @@ public class MainController implements Initializable {
 
     @FXML
     void buttonEncrypt_onAction() {
+        FileChooser frontCoversFileChooser = new FileChooser();
+        frontCoversFileChooser.setTitle("Wybierz klucz publiczny");
+        frontCoversFileChooser.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("klucze", "*.key"));
+        File file = frontCoversFileChooser.showOpenDialog(textAreaEncryptedFileContent.getScene().getWindow());
+        if (file != null) {
+            String pathForEncryptedFile = textFieldFilePath.getText().substring(0, textFieldFilePath.getText().lastIndexOf('\\')) + "\\encrypted_file.txt";
+            System.out.println(pathForEncryptedFile);
+            try {
+                encoderDecoder.encryptFile(textFieldFilePath.getText(), pathForEncryptedFile, file.toString());
 
-        String pathForEncryptedFile = textFieldFilePath.getText().substring(0, textFieldFilePath.getText().lastIndexOf('\\')) + "\\encrypted_file.txt";
-        System.out.println(pathForEncryptedFile);
-        try {
-            encoderDecoder.encryptFile(textFieldFilePath.getText(), pathForEncryptedFile);
-
-            readFileContent(null, textAreaFileContent, pathForEncryptedFile);
-        } catch (IOException e) {
-            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "błąd odczytu z pliku").showAndWait();
-        } catch (IllegalBlockSizeException e) {
-            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "zbyt duży rozmiar pliku.").showAndWait();
-        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Bład szyfrowania").showAndWait();
-        } catch (InvalidKeyException e) {
-            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Zbyt duży rozmiar pliku").showAndWait();
+                readFileContent(null, textAreaFileContent, pathForEncryptedFile);
+            } catch (IOException e) {
+                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "błąd odczytu z pliku").showAndWait();
+            } catch (IllegalBlockSizeException e) {
+                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "zbyt duży rozmiar pliku.").showAndWait();
+            } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Bład szyfrowania").showAndWait();
+            } catch (InvalidKeyException e) {
+                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Zbyt duży rozmiar pliku").showAndWait();
+            }
         }
     }
 
