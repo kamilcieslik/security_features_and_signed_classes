@@ -41,7 +41,7 @@ public class EncoderDecoder {
 
     public void createNewKeys(String keysPath) throws IOException {
         keyGenerator.createKeys();
-        keyGenerator.writeToFile(keysPath + "/publicKey", keyGenerator.getPublicKey().getEncoded());
-        keyGenerator.writeToFile(keysPath + "/privateKey", keyGenerator.getPrivateKey().getEncoded());
+        keyGenerator.writeToFile(keysPath + "/publicKey.key", keyGenerator.getPublicKey().getEncoded());
+        keyGenerator.writeToFile(keysPath + "/privateKey.key", keyGenerator.getPrivateKey().getEncoded());
     }
 }
