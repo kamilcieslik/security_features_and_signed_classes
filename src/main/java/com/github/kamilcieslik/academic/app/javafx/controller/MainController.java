@@ -86,28 +86,23 @@ public class MainController implements Initializable {
 
     @FXML
     void buttonEncrypt_onAction() {
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Wybierz ścieżkę zapisu zaszyfrowanego pliku");
-        File directory = chooser.showDialog(textAreaEncryptedFileContent.getScene().getWindow());
-        if (directory != null && directory.isDirectory()) {
-            try {
-                encoderDecoder.encryptFile(textFieldFilePath.getText(), directory.toString());
 
-                String fileContent = readTextFromFile(outPutFilePath);
-                if (fileContent != null) {
-                    textAreaAfterChanges.setText(fileContent);
-                }
-            } catch (IOException e) {
-                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "błąd odczytu z pliku").showAndWait();
-            } catch (IllegalBlockSizeException e) {
-                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "zbyt duży rozmiar pliku.").showAndWait();
-            } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (BadPaddingException e) {
-                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Bład szyfrowania").showAndWait();
-            } catch (InvalidKeyException e) {
-                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Zbyt duży rozmiar pliku").showAndWait();
-            }
+        String pathForEncryptedFile = textFieldFilePath.getText().substring(0, textFieldFilePath.getText().lastIndexOf('\\')) + "\\encrypted_file.txt";
+        System.out.println(pathForEncryptedFile);
+        try {
+            encoderDecoder.encryptFile(textFieldFilePath.getText(), pathForEncryptedFile);
+
+            readFileContent(null, textAreaFileContent, pathForEncryptedFile);
+        } catch (IOException e) {
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "błąd odczytu z pliku").showAndWait();
+        } catch (IllegalBlockSizeException e) {
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "zbyt duży rozmiar pliku.").showAndWait();
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Bład szyfrowania").showAndWait();
+        } catch (InvalidKeyException e) {
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie", "Operacja szyfrowania nie powiodła się.", "Powód: " + "Zbyt duży rozmiar pliku").showAndWait();
         }
     }
 
@@ -141,7 +136,8 @@ public class MainController implements Initializable {
         BufferedReader bufferedReader;
 
         try {
-            textFieldFilePath.setText(filePath);
+            if (textFieldFilePath != null)
+                textFieldFilePath.setText(filePath);
             bufferedReader = new BufferedReader(new FileReader(filePath));
             StringBuilder stringBuilder = new StringBuilder();
             String line = bufferedReader.readLine();
